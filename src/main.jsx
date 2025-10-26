@@ -73,10 +73,10 @@ function RootApp() {
       {!ready ? (
         <div className="h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[#FFF6E5] via-[#E3F8FA] to-[#FFE8E1]">
           <img
-            src={`${import.meta.env.BASE_URL}assets/ludikids-logo.png`}
+            src={`${import.meta.env.BASE_URL}logo.png`}
             alt="Ludikids"
             className="w-28 h-28 mb-4 animate-pulse-float"
-            onError={(e)=>{ e.currentTarget.src = 'data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22112%22 height=%22112%22><rect width=%22112%22 height=%22112%22 rx=%2216%22 fill=%22%2378C3C7%22/><text x=%2256%22 y=%2265%22 font-size=%2220%22 text-anchor=%22middle%22 fill=%22white%22>Logo</text></svg>'; }}
+            onError={(e)=>{ e.currentTarget.src = `${import.meta.env.BASE_URL}assets/ludikids-logo.png`; }}
           />
           <p className="text-ludikids-teal font-semibold">Carregando...</p>
         </div>
