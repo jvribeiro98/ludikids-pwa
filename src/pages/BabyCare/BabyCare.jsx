@@ -4,12 +4,10 @@ import IABox from '../../components/IABox.jsx';
 import Accordion from '../../components/Accordion.jsx';
 
 const ICONS = [
-  { key: 'banhou', label: 'Banhou', emoji: '🛁' },
-  { key: 'dormiu', label: 'Dormiu', emoji: '😴' },
-  { key: 'escovou', label: 'Escovou', emoji: '🪥' },
-  { key: 'mamou', label: 'Mamou', emoji: '🍼' },
+  { key: 'banho', label: 'Banho', emoji: '🛁' },
+  { key: 'sono', label: 'Sono', emoji: '😴' },
+  { key: 'alimentacao', label: 'Alimentação', emoji: '🍽️' },
   { key: 'fralda', label: 'Fralda', emoji: '🧷' },
-  { key: 'alimentou', label: 'Alimentou', emoji: '🍽️' },
 ];
 
 function storageKey(dateStr){ return `lk_babycare_${dateStr}`; }
@@ -93,4 +91,3 @@ export default function BabyCare(){
     </motion.div>
   );
 }
-
