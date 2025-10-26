@@ -22,13 +22,10 @@ export default function BabyCare(){
 
   const [notes, setNotes] = useState({
     obs: saved.notes?.obs || '',
-    diff: saved.notes?.diff || '',
-    like: saved.notes?.like || '',
-    dislike: saved.notes?.dislike || '',
   });
 
   const save = () => {
-    const data = { date, notes, icons: saved.icons || [] };
+    const data = { date, notes: { obs: notes.obs }, icons: saved.icons || [] };
     localStorage.setItem(storageKey(date), JSON.stringify(data));
   };
 
@@ -63,16 +60,7 @@ export default function BabyCare(){
 
       <div className="space-y-3 mt-4">
         <Accordion title="Observação do professor(a)" defaultOpen>
-          <textarea className="w-full border rounded-2xl p-2 text-sm" rows={3} value={notes.obs} onChange={e=>setNotes({...notes,obs:e.target.value})} />
-        </Accordion>
-        <Accordion title="Ocorreu algo diferente na rotina?">
-          <textarea className="w-full border rounded-2xl p-2 text-sm" rows={3} value={notes.diff} onChange={e=>setNotes({...notes,diff:e.target.value})} />
-        </Accordion>
-        <Accordion title="O que o aluno gosta">
-          <textarea className="w-full border rounded-2xl p-2 text-sm" rows={3} value={notes.like} onChange={e=>setNotes({...notes,like:e.target.value})} />
-        </Accordion>
-        <Accordion title="O que o aluno NÃO gosta">
-          <textarea className="w-full border rounded-2xl p-2 text-sm" rows={3} value={notes.dislike} onChange={e=>setNotes({...notes,dislike:e.target.value})} />
+          <textarea className="w-full border rounded-2xl p-2 text-sm" rows={3} value={notes.obs} onChange={e=>setNotes({obs:e.target.value})} />
         </Accordion>
       </div>
 
