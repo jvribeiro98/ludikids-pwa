@@ -2,16 +2,12 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: ["main"]
+    branches: [main]
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
 
 jobs:
   build:
@@ -19,21 +15,24 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 18
           cache: npm
-      - name: Install
+
+      - name: Install dependencies
         run: npm ci
-      - name: Build
+
+      - name: Build project
         run: npm run build
-        env:
-          VITE_WS_URL: ${{ secrets.VITE_WS_URL }}
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: dist
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
