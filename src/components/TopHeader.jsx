@@ -1,6 +1,8 @@
 import React from 'react';
+import { useAuth } from '../context/AuthContext.jsx';
 
 export default function TopHeader({ student }) {
+  const { isLogged, logout } = useAuth() || {};
   return (
     <div className="w-full px-5 py-5 bg-gradient-to-r from-[#78C3C7] via-[#EFD179] to-[#E99A8C] rounded-3xl shadow-md text-white mb-5">
       <div className="flex items-center gap-3">
@@ -21,6 +23,11 @@ export default function TopHeader({ student }) {
           onError={(e)=>{ e.currentTarget.src = `${import.meta.env.BASE_URL}assets/ludikids-logo.png`; }}
         />
       </div>
+      {isLogged && (
+        <div className="mt-2 text-right">
+          <button onClick={logout} className="text-xs bg-white/20 px-3 py-1 rounded-full">Sair</button>
+        </div>
+      )}
     </div>
   );
 }

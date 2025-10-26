@@ -11,8 +11,9 @@ export default function AppLayout() {
     <div className="relative min-h-screen overflow-x-hidden">
       <PWAUpdate />
       <Outlet />
-      <NavBar />
+      {!location.pathname.startsWith('/login') && !location.pathname.startsWith('/cadastro') && (
+        <NavBar />
+      )}
     </div>
   );
 }
-

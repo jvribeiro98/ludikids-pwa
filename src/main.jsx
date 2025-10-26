@@ -7,6 +7,8 @@ import './index.css';
 import AppLayout from './App.jsx';
 import AdminDashboard from './admin/AdminDashboard.jsx';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
+import { AuthProvider } from './context/AuthContext.jsx';
+import Protected from './components/Protected.jsx';
 
 const Home = React.lazy(() => import('./pages/Home/Home.jsx'));
 const Calendario = React.lazy(() => import('./pages/Calendario/Calendario.jsx'));
@@ -21,6 +23,8 @@ const Foto = React.lazy(() => import('./pages/Foto/Foto.jsx'));
 const Sobre = React.lazy(() => import('./pages/Sobre/Sobre.jsx'));
 const Chat = React.lazy(() => import('./pages/Chat.jsx'));
 import AdminChat from './admin/AdminChat.jsx';
+const Login = React.lazy(() => import('./pages/Auth/Login.jsx'));
+const Register = React.lazy(() => import('./pages/Auth/Register.jsx'));
 
 function RouteTransitions() {
   const location = useLocation();
@@ -36,7 +40,9 @@ function RouteTransitions() {
       >
         <Suspense fallback={<div className="h-screen flex items-center justify-center text-ludikids-teal">Carregando...</div>}>
           <Routes location={location}>
-            <Route element={<AppLayout />}> 
+            <Route path="/login" element={<Login />} />
+            <Route path="/cadastro" element={<Register />} />
+            <Route element={<Protected><AppLayout /></Protected>}> 
               <Route index element={<Home />} />
               <Route path="/calendario" element={<Calendario />} />
               <Route path="/avisos" element={<Avisos />} />
@@ -50,8 +56,8 @@ function RouteTransitions() {
               <Route path="/sobre" element={<Sobre />} />
               <Route path="/chat" element={<Chat />} />
             </Route>
-            <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/admin/chat" element={<AdminChat />} />
+            <Route path="/admin" element={<Protected><AdminDashboard /></Protected>} />
+            <Route path="/admin/chat" element={<Protected><AdminChat /></Protected>} />
           </Routes>
         </Suspense>
       </motion.div>
@@ -67,6 +73,7 @@ function RootApp() {
   }, []);
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <AuthProvider>
       <Toaster position="top-right" toastOptions={{
         style: { borderRadius: 16, background: '#fff', color: '#333', boxShadow: '0 10px 24px rgba(0,0,0,0.08)' }
       }} />
@@ -83,6 +90,7 @@ function RootApp() {
       ) : (
         <RouteTransitions />
       )}
+      </AuthProvider>
     </BrowserRouter>
   );
 }
