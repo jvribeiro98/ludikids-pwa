@@ -44,7 +44,7 @@ export default function BabyCare(){
         <input type="date" value={date} onChange={e=>setDate(e.target.value)} className="border rounded-2xl p-2 text-sm" />
       </div>
 
-      <IABox baseText="Prezada família, sou Vicky. Hoje vou ajudar a registrar o dia do seu pequeno." />
+      <IABox baseText="Prezada família, sou Lúdica. Hoje vou ajudar a registrar o dia do seu pequeno." />
 
       <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 mt-4">
         {ICONS.map(i => {
