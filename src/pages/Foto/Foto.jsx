@@ -1,0 +1,12 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+
+export default function Foto(){
+  return (
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="p-6 min-h-screen bg-gradient-to-br from-[#FFF6E5] via-[#E3F8FA] to-[#FFE8E1] pb-28 text-center text-[#78C3C7]">
+      <h1 className="text-xl font-bold mb-2">Foto</h1>
+      <p className="text-sm">Atualize sua foto de perfil. Em breve.</p>
+    </motion.div>
+  );
+}
+

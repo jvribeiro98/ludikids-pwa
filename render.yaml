@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: ludikids-chat
+    env: node
+    plan: free
+    buildCommand: "npm install"
+    startCommand: "node server/chat-server.js"
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: ADMIN_KEY
+        generateValue: true
+      - key: WS_ORIGINS
+        value: ""
