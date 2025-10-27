@@ -15,10 +15,13 @@ export default function Avisos() {
   const [acks, setAcks] = useLocalStorage('lk_avisos_acks', {});
   const [confirmId, setConfirmId] = useState(null);
 
-  const list = useMemo(() => avisos.filter(a => {
-    const t = `${a.title||''} ${a.texto||''}`.toLowerCase();
-    return t.includes(filter.toLowerCase());
-  }), [avisos, filter]);
+  const list = useMemo(() => (avisos||[])
+    .filter(a => a?.approved || a?.autor === 'Coordenação')
+    .filter(a => {
+      const t = `${a.title||''} ${a.texto||''}`.toLowerCase();
+      return t.includes(filter.toLowerCase());
+    })
+  , [avisos, filter]);
 
   const toggleLike = (id) => setLikes({ ...likes, [id]: !likes[id] });
   const confirmAck = () => { if (confirmId){ setAcks({ ...acks, [confirmId]: true }); toast.success('Marcado como ciente'); setConfirmId(null);} };

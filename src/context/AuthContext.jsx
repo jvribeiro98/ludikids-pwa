@@ -39,7 +39,7 @@ export function AuthProvider({ children }) {
     const exists = users.some(u => u.email.toLowerCase() === email.toLowerCase());
     if (exists) throw new Error('E-mail já cadastrado');
     const passHash = await sha256(password);
-    const user = { name, email, passHash, studentId };
+    const user = { name, email, passHash, studentId, role: 'responsavel' };
     users.push(user);
     writeUsers(users);
     toast.success('Cadastro realizado');
@@ -51,7 +51,7 @@ export function AuthProvider({ children }) {
     const passHash = await sha256(password);
     const user = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.passHash === passHash);
     if (!user) throw new Error('Credenciais inválidas');
-    const s = { email: user.email, name: user.name, studentId: user.studentId };
+    const s = { email: user.email, name: user.name, studentId: user.studentId, role: user.role || 'responsavel' };
     setSession(s);
     // popular o perfil usado no topo
     localStorage.setItem('lk_user', JSON.stringify({ name: user.name, classroom: 'Turma Arco-Íris', school: 'Ludikids Centro Educacional', photo: '/assets/student.png' }));
@@ -63,9 +63,18 @@ export function AuthProvider({ children }) {
     setSession(null);
   };
 
-  const value = useMemo(() => ({ session, isLogged: !!session, register, login, logout }), [session]);
+  const setRole = (role) => {
+    setSession(prev => prev ? { ...prev, role } : prev);
+    // opcional: refletir no cadastro local do usuário logado (apenas dev)
+    try {
+      const users = readUsers();
+      const idx = users.findIndex(u => u.email === session?.email);
+      if (idx >= 0) { users[idx].role = role; writeUsers(users); }
+    } catch {}
+  };
+
+  const value = useMemo(() => ({ session, isLogged: !!session, register, login, logout, setRole }), [session]);
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() { return useContext(AuthContext); }
-
