@@ -6,7 +6,10 @@ import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
 import authRoutes, { authMiddleware, requireRole } from './auth.js';
 import { db, uid } from './db.js';
+import { ensureDefaultAdminUser } from './seed.js';
 import { z } from 'zod';
+
+await ensureDefaultAdminUser();
 
 const app = express();
 app.use(helmet());

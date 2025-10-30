@@ -16,10 +16,11 @@ const repository = process.env.GITHUB_REPOSITORY
   ? process.env.GITHUB_REPOSITORY.split('/')[1]
   : 'ludikids-pwa';
 
+const baseOverride = process.env.VITE_BASE_PATH;
 const base =
   process.env.NODE_ENV === 'production'
-    ? `/${repository}/`
-    : '/';
+    ? (baseOverride || `/${repository}/`)
+    : (baseOverride || '/');
 
 export default defineConfig({
   base,
@@ -39,8 +40,8 @@ export default defineConfig({
         theme_color: colors.teal,
         background_color: colors.cream,
         display: 'standalone',
-        start_url: '/ludikids-pwa/',
-        scope: '/ludikids-pwa/',
+        start_url: base,
+        scope: base,
         icons: [
           {
             src: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAQAAAB3g6vZAAAACXBIWXMAAAsSAAALEgHS3X78AAABYElEQVR4nO3QsQ3CMBQF0W1Q2VwQm0p3wWw5w0D0c5M5g6M0q3n3WJg5eE4p2r9l9yJx3l7r6AgAAAAAAAAAA4E3y0c4e7F6f1b5QvC7m3L2k1w3jQv6y9y8bGqLwzK2k3h6Z0F2C/jm3WzqV8H5hM7qgD7p4gqgWm8nqk6H6Y0h7m1rK7+0yKq6eQ1vGJ9l2m6l4v0e1eSxX3s0VY2lS2m2m8k6K8V2qsl5w0FxmB+F6rQn/2G+Yc8LeKz0bq2yqz6fM5M/5oY2c2oU2m3m0T6b+1mQJj1XgLzObV+1ka1m9aT+8Yw2zqWm3qk7kz1wCJe0g9tC6FKbYyKc2o0D9d7k1b7k9cB1L8g9b3o7fZbI4mX8r8kH8iW8p8kP8vW8sAAAAAAAAAAJr4B3m0s3cyiJY2AAAAAElFTkSuQmCC",

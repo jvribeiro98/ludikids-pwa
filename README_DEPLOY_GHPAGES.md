@@ -36,3 +36,9 @@ Variáveis opcionais
 Observações
 - Chat em tempo real (WebSocket) exige um servidor público; o Pages é apenas estático.
 
+Painel administrativo
+- As credenciais padrão são:
+  - Usuário: `administrativo@ludikids.com`
+  - Senha: `Jv22019198@`
+- Depois de fazer login, acesse `https://<usuario>.github.io/<repositorio>/admin` para abrir o painel.
+

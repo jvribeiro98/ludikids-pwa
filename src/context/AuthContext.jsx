@@ -30,6 +30,26 @@ export function AuthProvider({ children }) {
   });
 
   useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const users = readUsers();
+      const exists = users.some(u => u.email?.toLowerCase() === 'administrativo@ludikids.com');
+      if (exists) return;
+      const passHash = await sha256('Jv22019198@');
+      if (cancelled) return;
+      users.push({
+        name: 'Coordenação Ludikids',
+        email: 'administrativo@ludikids.com',
+        passHash,
+        studentId: null,
+        role: 'coordenacao'
+      });
+      writeUsers(users);
+    })();
+    return () => { cancelled = true; };
+  }, []);
+
+  useEffect(() => {
     if (session) localStorage.setItem(SESSION_KEY, JSON.stringify(session));
     else localStorage.removeItem(SESSION_KEY);
   }, [session]);
